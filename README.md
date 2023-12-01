@@ -1,2 +1,2 @@
-# camunda-bpmn-ang
+# BPMN Angular
 Implementation of BPMN.js in Angular
