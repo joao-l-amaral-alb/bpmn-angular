@@ -1,0 +1,8 @@
+::ng-deep .bjs-powered-by{
+    display: none;
+}
+
+.diagram-properties-panel {
+    float: right;
+    width: 25%;
+}

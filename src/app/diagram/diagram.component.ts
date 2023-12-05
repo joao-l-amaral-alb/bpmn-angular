@@ -1,13 +1,9 @@
 import { ElementRef, ViewChild, OnInit } from '@angular/core';
 import minimapModule from 'diagram-js-minimap';
 import BpmnColorPickerModule from 'bpmn-js-color-picker';
-
 import { Component } from '@angular/core';
 import BpmnModeler from 'bpmn-js/lib/Modeler';
-//@ts-ignore
-import BpmnJS from 'bpmn-js/dist/bpmn-modeler.production.min.js';
-
-type BpmnJS = typeof BpmnJS
+import { BpmnPropertiesPanelModule, BpmnPropertiesProviderModule } from 'bpmn-js-properties-panel/dist';
 
 @Component({
   selector: 'app-diagram',
@@ -17,16 +13,21 @@ type BpmnJS = typeof BpmnJS
   styleUrl: './diagram.component.css'
 })
 export class DiagramComponent {
-  private bpmnJS: BpmnJS
-  //private modeler: BpmnModeler
-  
+
+  private modeler: BpmnModeler
+  private panel: any;
+
   @ViewChild('ref', { static: true }) private el!: ElementRef;
+  @ViewChild('properties', { static: true }) private propertiesPanel!: ElementRef;
 
   constructor(){
-    this.bpmnJS = new BpmnJS({
+    this.modeler = new BpmnModeler({
       position: 'absolute',
       additionalModules: [
-        minimapModule
+        minimapModule,
+        BpmnColorPickerModule,
+        BpmnPropertiesPanelModule,
+        BpmnPropertiesProviderModule
       ]
     })
   }
@@ -35,23 +36,23 @@ export class DiagramComponent {
     fetch('../assets/template.bpmn')
          .then(response => response.text())
          .then(xml => {
-            this.bpmnJS.importXML(xml)
+            this.modeler.importXML(xml)
          });
-  }
 
-  zoomIn() {
-    this.bpmnJS.get('zoomScroll').stepZoom(1);
-  }
-
-  zoomOut() {
-    this.bpmnJS.get('zoomScroll').stepZoom(-1);
+  
+    /*this.modeler.on('element.click', (event) => {
+      this.panel.detach();
+      this.panel.attachTo(this.propertiesPanel.nativeElement);
+    });*/
   }
   
   ngAfterContentInit(): void{
-    this.bpmnJS.attachTo(this.el.nativeElement);
+    this.modeler.attachTo(this.el.nativeElement);
+    this.panel = this.modeler.get('propertiesPanel');
+    this.panel.attachTo(this.propertiesPanel.nativeElement);
   }
 
   ngOnDestroy(): void {
-    this.bpmnJS.destroy();
+    this.modeler.destroy();
   }
 }

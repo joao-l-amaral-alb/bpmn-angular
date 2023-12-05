@@ -1,5 +1,5 @@
 {
-  "name": "camunda-ang",
+  "name": "bpmn-ang",
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
@@ -20,6 +20,7 @@
     "@angular/router": "^17.0.0",
     "bpmn-js": "^15.2.2",
     "bpmn-js-color-picker": "^0.6.1",
+    "bpmn-js-properties-panel": "^5.6.1",
     "diagram-js-minimap": "^4.1.0",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
