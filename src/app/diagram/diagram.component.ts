@@ -6,15 +6,14 @@ import BpmnModeler from 'bpmn-js/lib/Modeler';
 import { BpmnPropertiesPanelModule, BpmnPropertiesProviderModule } from 'bpmn-js-properties-panel/dist';
 import { MenuComponent } from './menu/menu.component';
 import { BpmnService } from '../shared/services/bpmn.service';
-import { SaveXMLResult } from 'bpmn-js/lib/BaseViewer';
-import { Router } from '@angular/router';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
 
 @Component({
   selector: 'app-diagram',
   standalone: true,
   imports: [
-    MenuComponent
+    MenuComponent,
+    HttpClientModule
   ],
   templateUrl: './diagram.component.html',
   styleUrl: './diagram.component.css'
@@ -46,10 +45,10 @@ export class DiagramComponent {
     const existingDataXML = this.bpmnService.getXML();
 
     if(!existingDataXML) {
-      this.httpClient.get<string>('assets/template.bpmn').subscribe({
+      this.httpClient.get('assets/template.bpmn', { responseType: 'text' }).subscribe({
           next: (xml: string) => { this.modeler.importXML(xml) },
-          error: (e) => console.error(e),
-          complete: () => console.info('Get city list request...')
+          error: (e) => {console.error(e)},
+          complete: () => console.info('Get default bpmn...')
       });
     } else {
       this.modeler.importXML(existingDataXML)
