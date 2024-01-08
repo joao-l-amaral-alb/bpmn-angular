@@ -44,7 +44,7 @@ export class DiagramComponent {
     const existingDataXML = this.bpmnService.getXML();
 
     if(!existingDataXML) {
-      fetch('../assets/template.bpmn')
+      fetch('assets/template.bpmn')
           .then(response => response.text())
           .then(xml => {
               this.modeler.importXML(xml)
