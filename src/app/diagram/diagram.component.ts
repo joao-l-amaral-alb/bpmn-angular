@@ -41,11 +41,17 @@ export class DiagramComponent {
   }
 
   ngOnInit(): void{
-    fetch('../assets/template.bpmn')
-         .then(response => response.text())
-         .then(xml => {
-            this.modeler.importXML(xml)
-         });
+    const existingDataXML = this.bpmnService.getXML();
+
+    if(!existingDataXML) {
+      fetch('../assets/template.bpmn')
+          .then(response => response.text())
+          .then(xml => {
+              this.modeler.importXML(xml)
+          });
+    } else {
+      this.modeler.importXML(existingDataXML)
+    }
   }
   
   ngAfterContentInit(): void{
