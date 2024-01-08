@@ -8,6 +8,7 @@ import { MenuComponent } from './menu/menu.component';
 import { BpmnService } from '../shared/services/bpmn.service';
 import { SaveXMLResult } from 'bpmn-js/lib/BaseViewer';
 import { Router } from '@angular/router';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-diagram',
@@ -27,7 +28,8 @@ export class DiagramComponent {
   @ViewChild('properties', { static: true }) private propertiesPanel!: ElementRef;
 
   constructor(
-    private bpmnService: BpmnService
+    private bpmnService: BpmnService,
+    private httpClient: HttpClient
   ){
     this.modeler = new BpmnModeler({
       position: 'absolute',
@@ -44,11 +46,11 @@ export class DiagramComponent {
     const existingDataXML = this.bpmnService.getXML();
 
     if(!existingDataXML) {
-      fetch('assets/template.bpmn')
-          .then(response => response.text())
-          .then(xml => {
-              this.modeler.importXML(xml)
-          });
+      this.httpClient.get<string>('assets/template.bpmn').subscribe({
+          next: (xml: string) => { this.modeler.importXML(xml) },
+          error: (e) => console.error(e),
+          complete: () => console.info('Get city list request...')
+      });
     } else {
       this.modeler.importXML(existingDataXML)
     }
