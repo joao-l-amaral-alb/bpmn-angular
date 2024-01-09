@@ -32,9 +32,7 @@
             "styles": [
               "src/styles.css"
             ],
-            "scripts": [
-              "node_modules/preact/hooks/dist/hooks.js"
-            ]
+            "scripts": []
           },
           "configurations": {
             "production": {
