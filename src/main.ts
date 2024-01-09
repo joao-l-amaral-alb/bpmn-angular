@@ -4,3 +4,5 @@ import { HomeComponent } from './app/home/home.component';
 
 bootstrapApplication(HomeComponent, appConfig)
   .catch((err) => console.error(err));
+
+  
