@@ -16,6 +16,11 @@
             "outputPath": "build/",
             "index": "src/index.html",
             "browser": "src/main.ts",
+            "sourceMap": {
+              "styles": true,
+              "scripts": true,
+              "vendor": true
+            },
             "polyfills": [
               "zone.js"
             ],
@@ -27,7 +32,9 @@
             "styles": [
               "src/styles.css"
             ],
-            "scripts": []
+            "scripts": [
+              "node_modules/preact/hooks/dist/hooks.js"
+            ]
           },
           "configurations": {
             "production": {
