@@ -6,7 +6,7 @@ import { BpmnService } from './shared/services/bpmn.service';
 import { HttpClient, provideHttpClient } from '@angular/common/http';
 import minimapModule from 'diagram-js-minimap';
 import BpmnColorPickerModule from 'bpmn-js-color-picker';
-import { BpmnPropertiesPanelModule, BpmnPropertiesProviderModule } from 'bpmn-js-properties-panel/dist';
+import { BpmnPropertiesPanelModule, BpmnPropertiesProviderModule } from 'bpmn-js-properties-panel';
 
 export function initializeApp(bpmnService: BpmnService, httpClient: HttpClient): Function {
   const modeler: BpmnModeler = new BpmnModeler(
