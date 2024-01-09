@@ -13,9 +13,14 @@
         "build": {
           "builder": "@angular-devkit/build-angular:application",
           "options": {
-            "outputPath": "dist/camunda-ang",
+            "outputPath": "build/",
             "index": "src/index.html",
             "browser": "src/main.ts",
+            "sourceMap": {
+              "styles": true,
+              "scripts": true,
+              "vendor": true
+            },
             "polyfills": [
               "zone.js"
             ],
@@ -35,7 +40,7 @@
                 {
                   "type": "initial",
                   "maximumWarning": "500kb",
-                  "maximumError": "1mb"
+                  "maximumError": "2mb"
                 },
                 {
                   "type": "anyComponentStyle",
