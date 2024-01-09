@@ -1,10 +1,10 @@
 {
   "name": "bpmn-ang",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "build": "ng build --configuration production --base-href /bpmn-angular/",
+    "build": "ng build --configuration production --watch --source-map --base-href /bpmn-angular/",
     "watch": "ng build --watch --configuration development",
     "test": "ng test"
   },
