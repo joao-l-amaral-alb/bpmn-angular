@@ -6,8 +6,9 @@ import { Subject } from "rxjs";
     providedIn: 'root',
 })
 export class BpmnService {
+    changedXML = new Subject<string>();
     private modeler!: BpmnModeler;
-    private xml: string = ""
+    private xml: string = "";
 
     getModeler(): BpmnModeler {
         return this.modeler;
@@ -15,6 +16,11 @@ export class BpmnService {
 
     setModeler(modeler: BpmnModeler): void {
         this.modeler = modeler;
+    }
+
+    clearModeler(): void {
+        console.log("Clear modeler");
+        this.modeler.clear();
     }
 
     getXML(): string {

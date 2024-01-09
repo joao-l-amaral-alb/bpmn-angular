@@ -18,13 +18,13 @@ export class XMLViewerComponent {
   ){ }
 
   ngOnInit(): void {
-     this.xml = this.bpmnService.getXML()
-     if(this.xml == undefined) {
-        this.xml = 'To design a workflow, go to the diagram page.';
+      this.xml = this.bpmnService.getXML()
+      if(this.xml == undefined) {
+         this.xml = 'To design a workflow, go to the diagram page.';
       }
   }
 
   viewDiagram(){
-     this.route.navigate(['']);
+      this.route.navigate(['']);
   }
 }

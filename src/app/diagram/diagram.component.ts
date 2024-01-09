@@ -1,12 +1,9 @@
-import { ElementRef, ViewChild } from '@angular/core';
-import minimapModule from 'diagram-js-minimap';
-import BpmnColorPickerModule from 'bpmn-js-color-picker';
+import { AfterContentInit, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Component } from '@angular/core';
 import BpmnModeler from 'bpmn-js/lib/Modeler';
-import { BpmnPropertiesPanelModule, BpmnPropertiesProviderModule } from 'bpmn-js-properties-panel/dist';
 import { MenuComponent } from './menu/menu.component';
 import { BpmnService } from '../shared/services/bpmn.service';
-import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { HttpClientModule } from '@angular/common/http';
 
 @Component({
   selector: 'app-diagram',
@@ -18,41 +15,21 @@ import { HttpClient, HttpClientModule } from '@angular/common/http';
   templateUrl: './diagram.component.html',
   styleUrl: './diagram.component.css'
 })
-export class DiagramComponent {
+export class DiagramComponent implements OnInit, AfterContentInit{
 
-  public modeler: BpmnModeler
+  public modeler!: BpmnModeler
   private panel: any;
 
   @ViewChild('ref', { static: true }) private el!: ElementRef;
   @ViewChild('properties', { static: true }) private propertiesPanel!: ElementRef;
 
   constructor(
-    private bpmnService: BpmnService,
-    private httpClient: HttpClient
+    private bpmnService: BpmnService
   ){
-    this.modeler = new BpmnModeler({
-      position: 'absolute',
-      additionalModules: [
-        minimapModule,
-        BpmnColorPickerModule,
-        BpmnPropertiesPanelModule,
-        BpmnPropertiesProviderModule
-      ]
-    })
   }
 
   ngOnInit(): void{
-    const existingDataXML = this.bpmnService.getXML();
-
-    if(!existingDataXML) {
-      this.httpClient.get('assets/template.bpmn', { responseType: 'text' }).subscribe({
-          next: (xml: string) => { this.modeler.importXML(xml) },
-          error: (e) => {console.error(e)},
-          complete: () => console.info('Get default bpmn...')
-      });
-    } else {
-      this.modeler.importXML(existingDataXML)
-    }
+    this.modeler = this.bpmnService.getModeler();
   }
   
   ngAfterContentInit(): void{
@@ -62,9 +39,4 @@ export class DiagramComponent {
     this.bpmnService.setModeler(this.modeler);
   }
 
-  ngOnDestroy(): void {
-    this.modeler.destroy();
-  }
-
-  
 }

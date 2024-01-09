@@ -26,9 +26,11 @@ export class MenuComponent implements OnInit, AfterViewInit {
   }
 
   viewXML(): void {
-    this.modeler.saveXML().then((xml: SaveXMLResult) =>{
-      if(xml.xml) {
-        this.bpmnService.setXML(xml.xml)
+    this.modeler.saveXML().then((xmlData: SaveXMLResult) =>{
+      const xml: string | undefined = xmlData.xml;
+      if(xml) {
+        this.bpmnService.setXML(xml)
+        this.bpmnService.changedXML.next(xml);
       }
     });
     this.route.navigate(['/xmlViewer']);
