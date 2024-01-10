@@ -1,9 +1,11 @@
 <div class="modeler">
-    <div class="d-flex flex-row justify-content-between align-items-end mx-3">
-        <div>
-            <app-menu></app-menu>
-        </div>
-     </div>
-    <div #ref style="height: 85%"></div>
-    <div #properties class="diagram-properties-panel"></div>
+    <div class="bpmn-canvas">
+        <div #ref style="height: 85%"></div>
+    </div>
+    <div id="properties-panel" class="properties-panel">
+        <div #properties></div>
+    </div>
+    <div class="top-menu">
+        <app-menu></app-menu>
+    </div>
 </div>

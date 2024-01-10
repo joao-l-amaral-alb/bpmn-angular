@@ -4,6 +4,7 @@ import BpmnModeler from 'bpmn-js/lib/Modeler';
 import { MenuComponent } from './menu/menu.component';
 import { BpmnService } from '../shared/services/bpmn.service';
 import { HttpClientModule } from '@angular/common/http';
+import { calculateMiniMapPosition, miniMapSetup } from '../helper/dom-manipulator';
 
 @Component({
   selector: 'app-diagram',
@@ -37,6 +38,9 @@ export class DiagramComponent implements OnInit, AfterContentInit{
     this.panel = this.modeler.get('propertiesPanel');
     this.panel.attachTo(this.propertiesPanel.nativeElement);
     this.bpmnService.setModeler(this.modeler);
+
+    miniMapSetup();
+    calculateMiniMapPosition();
   }
 
 }

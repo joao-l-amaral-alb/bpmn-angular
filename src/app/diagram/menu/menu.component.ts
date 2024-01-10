@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { SaveXMLResult } from 'bpmn-js/lib/BaseViewer';
 import BpmnModeler from 'bpmn-js/lib/Modeler';
@@ -11,10 +11,11 @@ import { BpmnService } from 'src/app/shared/services/bpmn.service';
   templateUrl: './menu.component.html',
   styleUrl: './menu.component.css'
 })
-export class MenuComponent implements OnInit, AfterViewInit {
+export class MenuComponent implements OnInit {
 
-  @Input() callBackFunction!: () => void;
   modeler!: BpmnModeler;
+  commandStack: any;
+  canvas: any;
 
   constructor(
     private route: Router,
@@ -23,6 +24,8 @@ export class MenuComponent implements OnInit, AfterViewInit {
 
   ngOnInit(): void {
     this.modeler = this.bpmnService.getModeler();
+    this.commandStack = this.modeler.get("commandStack");
+    this.canvas = this.modeler.get("canvas");
   }
 
   viewXML(): void {
@@ -35,16 +38,26 @@ export class MenuComponent implements OnInit, AfterViewInit {
     });
     this.route.navigate(['/xmlViewer']);
   }
-  
-  // @ViewChild('topMenu', { static: true }) private topMenuElement!: ElementRef;
-  
-  ngAfterViewInit(): void {
-    /* const minimapButton: HTMLCollectionOf<Element> | null = document.getElementsByClassName("djs-minimap");
-    const targetElement: HTMLElement = this.topMenuElement.nativeElement;
 
-    if(minimapButton && minimapButton.length > 0) {
-      targetElement.appendChild(minimapButton[0]);
-    } */
+  downloadXML(): void {
+    console.log("download");
+  }
+
+  resetXML(): void {
+    const defaultXL = this.bpmnService.getDefaultXML();
+    this.modeler.importXML(defaultXL);
+  }
+
+  undoAction(): void {
+    this.commandStack.undo();
+  }
+
+  redoAction(): void {
+    this.commandStack.redo();
+  }
+
+  fitAction(): void {
+    this.canvas.zoom('fit-viewport');
   }
 
 }

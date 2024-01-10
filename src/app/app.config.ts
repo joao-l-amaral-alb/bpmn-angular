@@ -24,7 +24,10 @@ export function initializeApp(bpmnService: BpmnService, httpClient: HttpClient):
   bpmnService.setModeler(modeler);
 
   return () => httpClient.get('assets/template.bpmn', { responseType: 'text' }).subscribe({
-    next: (xml: string) => { modeler.importXML(xml) },
+    next: (xml: string) => {
+      bpmnService.setDefaultXML(xml);
+      modeler.importXML(xml) 
+    },
     error: (e) => {console.error(e)},
     complete: () => console.info('Get default bpmn...')
   });
