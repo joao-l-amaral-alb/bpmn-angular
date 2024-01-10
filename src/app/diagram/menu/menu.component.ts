@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { SaveXMLResult } from 'bpmn-js/lib/BaseViewer';
 import BpmnModeler from 'bpmn-js/lib/Modeler';
+import { saveAs } from 'file-saver';
 import { BpmnService } from 'src/app/shared/services/bpmn.service';
 
 @Component({
@@ -40,12 +41,18 @@ export class MenuComponent implements OnInit {
   }
 
   downloadXML(): void {
-    console.log("download");
+    this.modeler.saveXML().then((xmlData: SaveXMLResult) =>{
+      const xml: string | undefined = xmlData.xml;
+      if(xml) {
+        const blob = new Blob([xml], {type: "text/xml;charset=utf-8"});
+        saveAs(blob, "bpmn.xml");
+      }
+    });
   }
 
   resetXML(): void {
-    const defaultXL = this.bpmnService.getDefaultXML();
-    this.modeler.importXML(defaultXL);
+    const defaultXML: string = this.bpmnService.getDefaultXML();
+    this.modeler.importXML(defaultXML);
   }
 
   undoAction(): void {
