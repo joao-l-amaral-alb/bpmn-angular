@@ -18,6 +18,7 @@
     "@angular/platform-browser": "^17.0.0",
     "@angular/platform-browser-dynamic": "^17.0.0",
     "@angular/router": "^17.0.0",
+    "@fortawesome/fontawesome-free": "^6.5.1",
     "bpmn-js": "^15.2.2",
     "bpmn-js-color-picker": "^0.6.1",
     "bpmn-js-properties-panel": "^5.7.0",

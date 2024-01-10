@@ -9,6 +9,7 @@ export class BpmnService {
     changedXML = new Subject<string>();
     private modeler!: BpmnModeler;
     private xml: string = "";
+    private defaultXML: string = "";
 
     getModeler(): BpmnModeler {
         return this.modeler;
@@ -30,4 +31,13 @@ export class BpmnService {
     setXML(xml: string): void {
         this.xml = xml;
     }
+
+    getDefaultXML(){
+        return this.defaultXML;
+    }
+
+    setDefaultXML(defaultXML: string) {
+        this.defaultXML = defaultXML;
+    }
+    
 }

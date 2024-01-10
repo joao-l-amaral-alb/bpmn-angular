@@ -15,6 +15,7 @@ export class MenuComponent implements OnInit {
 
   modeler!: BpmnModeler;
   commandStack: any;
+  canvas: any;
 
   constructor(
     private route: Router,
@@ -24,6 +25,7 @@ export class MenuComponent implements OnInit {
   ngOnInit(): void {
     this.modeler = this.bpmnService.getModeler();
     this.commandStack = this.modeler.get("commandStack");
+    this.canvas = this.modeler.get("canvas");
   }
 
   viewXML(): void {
@@ -42,7 +44,8 @@ export class MenuComponent implements OnInit {
   }
 
   resetXML(): void {
-    console.log("reset to default");
+    const defaultXL = this.bpmnService.getDefaultXML();
+    this.modeler.importXML(defaultXL);
   }
 
   undoAction(): void {
@@ -51,6 +54,10 @@ export class MenuComponent implements OnInit {
 
   redoAction(): void {
     this.commandStack.redo();
+  }
+
+  fitAction(): void {
+    this.canvas.zoom('fit-viewport');
   }
 
 }

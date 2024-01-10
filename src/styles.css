@@ -80,3 +80,13 @@ html, body{
 .djs-minimap .cursor-move {
 	cursor: move;
 }
+
+.djs-minimap.open .toggle:before {
+	content: '\f00d'; 
+  	font-family: 'Font Awesome 5 Free';
+}
+
+.djs-minimap:not(.open) .toggle:before {
+	content: "\f279";
+  	font-family: 'Font Awesome 5 Free';
+}

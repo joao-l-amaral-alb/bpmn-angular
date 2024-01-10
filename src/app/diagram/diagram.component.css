@@ -11,6 +11,7 @@
 }
 
 .bpmn-canvas { grid-area: 1 / 1 / 6 / 5; }
+
 .properties-panel { 
     border-left: 1px solid lightgray;
     height: 100vh;
