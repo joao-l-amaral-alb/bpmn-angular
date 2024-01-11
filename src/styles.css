@@ -10,6 +10,10 @@ html, body{
     margin: 0;
 }
 
+.djs-popup-backdrop {
+	position: unset !important;
+}
+
 .djs-minimap {
 	cursor: pointer;
 	position: absolute;

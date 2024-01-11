@@ -20,6 +20,7 @@
     "@angular/router": "^17.0.0",
     "@fortawesome/fontawesome-free": "^6.5.1",
     "@types/file-saver": "^2.0.7",
+    "bootstrap": "^5.3.2",
     "bpmn-js": "^15.2.2",
     "bpmn-js-color-picker": "^0.6.1",
     "bpmn-js-properties-panel": "^5.7.0",
